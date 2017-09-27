@@ -7,7 +7,7 @@
             });
         $stateProvider
             .state('landing', {
-                url:'/',
+                url: '/',
                 templateUrl: '/templates/landing.html'
             })
             .state('album', {
@@ -19,6 +19,7 @@
                 templateUrl: '/templates/collection.html'
             });
     }
+
     angular
         .module('blocJams', ['ui.router'])
         .config(config);
