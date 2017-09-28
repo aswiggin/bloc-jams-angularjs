@@ -13,6 +13,7 @@
             })
             .state('album', {
                 url: '/album',
+                controller: 'AlbumViewCtrl as album',
                 templateUrl: '/templates/album.html'
             })
             .state('collection', {
