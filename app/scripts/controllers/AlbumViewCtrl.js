@@ -15,8 +15,8 @@
           ]
         }
     }
-}
+
     angular
-        .module('blocJams'),
+        .module('blocJams')
         .controller('AlbumViewCtrl', AlbumViewCtrl);
 })();
