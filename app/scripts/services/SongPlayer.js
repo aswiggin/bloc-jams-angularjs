@@ -10,8 +10,7 @@
 //        @param {Object} song
         var setSong = function(song) {
           if (currentBuzzObject) {
-              currentBuzzObject.stop();
-              SongPlayer.currentSong.playing = null;
+              stopSong();
           }
           currentBuzzObject = new buzz.sound(song.audioUrl, {
               formats: ['mp3'],
@@ -26,6 +25,14 @@
             currentBuzzObject.play();
             song.playing = true;
         }
+//        @function stopSong
+//        @desc stops the song
+        var stopSong = function() {
+            currentBuzzObject.stop();
+            SongPlayer.currentSong.playing = null;
+        }
+//        @function getSongIndex
+//        @desc returns the index of the currently playing song
         var getSongIndex = function(song) {
             return currentAlbum.songs.indexOf(song);
         };
@@ -51,21 +58,34 @@
 //        @param {Object} song
         SongPlayer.pause = function(song) {
             song = song || SongPlayer.currentSong;
-            currentBuzzObject.pause();
-            song.playing = false;
+            stopSong();
         };
+//        @function SongPlayer.previous
+//        @desc switches to previous song, stops song if its the first in album
         SongPlayer.previous = function() {
             var currentSongIndex = getSongIndex(SongPlayer.currentSong);
             currentSongIndex--;
             if (currentSongIndex < 0) {
-                currentBuzzObject.stop();
-                SongPlayer.currentSong.playing = null;
+                stopSong();
             } else {
                 var song = currentAlbum.songs[currentSongIndex];
                 setSong(song);
                 playSong(song);
             }
         };
+//          @function SongPlayer.next
+//          @desc skips to next song, stops the music if its the last song
+        SongPlayer.next = function() {
+            var currentSongIndex = getSongIndex(SongPlayer.currentSong);
+                currentSongIndex++;
+            if (currentSongIndex > Object.keys(currentAlbum).length) {
+                stopSong();
+            } else {
+                var song = currentAlbum.songs[currentSongIndex];
+                setSong(song);
+                playSong(song);
+            }
+        }
         return SongPlayer;
     }
     angular
