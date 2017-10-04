@@ -20,6 +20,10 @@
           currentBuzzObject.bind('timeupdate', function() {
               $rootScope.$apply(function() {
                   SongPlayer.currentTime = currentBuzzObject.getTime();
+                  var duration = currentBuzzObject.getDuration();
+                      if (SongPlayer.currentTime === duration) {
+                          SongPlayer.next();
+                      }
               });
           });
           SongPlayer.currentSong = song;
@@ -68,7 +72,8 @@
 //        @param {Object} song
         SongPlayer.pause = function(song) {
             song = song || SongPlayer.currentSong;
-            stopSong();
+            currentBuzzObject.pause();
+            song.playing = false;
         };
 //        @function SongPlayer.previous
 //        @desc switches to previous song, stops song if its the first in album
