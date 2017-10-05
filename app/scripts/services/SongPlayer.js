@@ -68,7 +68,8 @@
 //        @param {Object} song
         SongPlayer.pause = function(song) {
             song = song || SongPlayer.currentSong;
-            stopSong();
+            currentBuzzObject.pause();
+            song.playing = false;
         };
 //        @function SongPlayer.previous
 //        @desc switches to previous song, stops song if its the first in album
